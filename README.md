@@ -1,5 +1,5 @@
 # Charmr
-#### Sports charity event manager
+## Sports charity event manager
 
 ### Why ?
 As part of having kids, I was exposed to an amazing charity that helped disabled kids get into sport. This specific charity has transformed the life of my daughter and many others. 
