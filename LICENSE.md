@@ -1,4 +1,4 @@
-Charmr Copyright (2021) (AUTHOR(S)(“Matt York”)
+Charmr Copyright (2021) (AUTHOR “Matt York”)
 
 Hippocratic License Version Number: 2.1.
 
