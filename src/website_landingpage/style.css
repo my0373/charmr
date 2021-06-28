@@ -1,0 +1,82 @@
+html {
+    height:100%;
+}
+body {
+    /*border-style: dashed;*/
+    background-color: black;
+    background-image: url("images/flower.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    background-position: center;
+    font-family: Arial, Helvetica, "sans-serif";
+
+}
+
+.container {
+
+    /*border-style: dashed;*/
+    margin-left: auto;
+    margin-right: auto;
+    width: 1024px;
+}
+
+header {
+    height:200px;
+    /*border-style: dashed;*/
+    text-align: center;
+}
+
+nav {
+    /*border-style: dashed;*/
+    text-align: left;
+    background-color: rgba(0,0,0,0.5);
+    text-align: center;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+
+}
+
+nav a {
+    /*border-style: dashed;*/
+    color: white;
+    text-decoration: none;
+}
+nav a:hover {
+    /*border-style: dashed;*/
+    color: white;
+    text-decoration: underline;
+}
+
+main {
+    height:400px;
+    /*border-style: dashed;*/
+}
+footer {
+    /*border-style: dashed;*/
+    text-align: left;
+    background-color: rgba(0,0,0,0.5);
+    text-align: center;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    padding: 0px, 10px,10px,0px;
+
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: underline;
+    padding: 0px, 10px,10px,0px;
+
+}
