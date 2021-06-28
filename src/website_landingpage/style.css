@@ -52,8 +52,10 @@ nav a:hover {
 }
 
 main {
-    height:400px;
+    height:auto;
     /*border-style: dashed;*/
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 footer {
     /*border-style: dashed;*/
@@ -71,6 +73,7 @@ footer a {
     color: white;
     text-decoration: none;
     padding: 0px, 10px,10px,0px;
+    font-size: 10px;
 
 }
 
@@ -78,5 +81,13 @@ footer a:hover {
     color: white;
     text-decoration: underline;
     padding: 0px, 10px,10px,0px;
+
+}
+
+.maps {
+    padding-left: auto;
+    padding-right: auto;
+    padding-bottom: 200px;
+    background-color: rgba(0,0,0,0.2);
 
 }
