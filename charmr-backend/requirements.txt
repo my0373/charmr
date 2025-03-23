@@ -1,0 +1,5 @@
+Django>=4.2
+gunicorn
+djangorestframework
+psycopg2-binary
+psycopg2
