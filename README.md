@@ -55,7 +55,6 @@ docker run -d \
         --name charmr-pgadmin \
         -e PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL} \
         -e PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD} \
-        -v ${PGADMIN_DATA_MOUNT}:/pgadmin4:Z \
         --replace \
         --network=charmr \
         -p 8081:80  \
