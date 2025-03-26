@@ -47,7 +47,7 @@ docker run -d \
 
 Optional: Set up PGAdmin
 ```bash
-mkdir -p ${HOME}/charmr/data/
+mkdir -p ${HOME}/charmr/pgadmin/
 ```
 
 ```bash
