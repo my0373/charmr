@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    branches: [main, devel]
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/charmr-backend
+  FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/charmr-frontend
+
+jobs:
+  build-and-push:
+    name: Build and Push Images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Determine tags
+        id: meta
+        run: |
+          SHA_SHORT=$(echo "${{ github.sha }}" | cut -c1-7)
+          DATE=$(date +%Y%m%d)
+          BRANCH="${GITHUB_REF##refs/heads/}"
+
+          if [ "$BRANCH" = "main" ]; then
+            echo "channel=latest" >> "$GITHUB_OUTPUT"
+            TAGS="latest,${SHA_SHORT},${DATE}"
+          else
+            echo "channel=devel" >> "$GITHUB_OUTPUT"
+            TAGS="devel,devel-${SHA_SHORT},devel-${DATE}"
+          fi
+
+          echo "backend_tags<<EOF" >> "$GITHUB_OUTPUT"
+          for tag in $(echo "$TAGS" | tr ',' '\n'); do
+            echo "${{ env.BACKEND_IMAGE }}:${tag}" >> "$GITHUB_OUTPUT"
+          done
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+          echo "frontend_tags<<EOF" >> "$GITHUB_OUTPUT"
+          for tag in $(echo "$TAGS" | tr ',' '\n'); do
+            echo "${{ env.FRONTEND_IMAGE }}:${tag}" >> "$GITHUB_OUTPUT"
+          done
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push backend
+        uses: docker/build-push-action@v6
+        with:
+          context: backend
+          file: backend/Dockerfile.prod
+          push: true
+          tags: ${{ steps.meta.outputs.backend_tags }}
+
+      - name: Build and push frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: frontend
+          file: frontend/Dockerfile.prod
+          push: true
+          tags: ${{ steps.meta.outputs.frontend_tags }}

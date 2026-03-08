@@ -1,0 +1,41 @@
+charmr_export:
+  version: 1
+
+regions:
+- name: North East
+  code: NE
+- name: North West
+  code: NW
+- name: Yorkshire & Humber
+  code: YH
+- name: East Midlands
+  code: EM
+- name: West Midlands
+  code: WM
+- name: East of England
+  code: EE
+- name: London
+  code: LDN
+- name: South East
+  code: SE
+- name: South West
+  code: SW
+- name: Wales
+  code: WLS
+- name: Scotland
+  code: SCT
+- name: Northern Ireland
+  code: NI
+
+families:
+- name: Example Family
+  status: active
+
+people:
+- first_name: Jane
+  last_name: Doe
+  email: jane.doe@example.com
+  phone: ''
+  date_of_birth: null
+  family: Example Family
+  user: null

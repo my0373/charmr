@@ -1,0 +1,35 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/charmr_backend:/opt/app-root/src/charmr_backend
+      - charmr-db:/opt/app-root/data
+    environment:
+      - CHARMR_DB_DIR=/opt/app-root/data
+      - DJANGO_DEBUG=True
+      - CHARMR_ADMIN_PASSWORD=${CHARMR_ADMIN_PASSWORD:-}
+    command: >
+      bash -c "python manage.py migrate --run-syncdb &&
+               python manage.py seed_data &&
+               if [ -n \"$CHARMR_ADMIN_PASSWORD\" ]; then python manage.py ensure_admin --password \"$CHARMR_ADMIN_PASSWORD\"; fi &&
+               python manage.py runserver 0.0.0.0:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/opt/app-root/src
+      - frontend-node-modules:/opt/app-root/src/node_modules
+    depends_on:
+      - backend
+    command: >
+      bash -c "npm install && npm run dev -- --host 0.0.0.0"
+
+volumes:
+  charmr-db:
+  frontend-node-modules:

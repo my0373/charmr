@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+*.sqlite3
+
+# Node
+node_modules/
+frontend/dist/
+.npm/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backups (local only)
+backups/
+
+# Exports (local only)
+exports/
+
+# Deploy bundles (local only)
+charmr-deploy-*/
+charmr-deploy-*.tar.gz
+
+# Static files (collected)
+staticfiles/
+
+# Environment
+.env
+.env.local

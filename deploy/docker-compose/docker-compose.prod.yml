@@ -1,0 +1,29 @@
+services:
+  backend:
+    image: ghcr.io/my0373/charmr-backend:${CHARMR_IMAGE_TAG:-latest}
+    restart: unless-stopped
+    volumes:
+      - charmr-db:/opt/app-root/data
+    environment:
+      - CHARMR_DB_DIR=/opt/app-root/data
+      - DJANGO_DEBUG=${DJANGO_DEBUG:-False}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:?Set DJANGO_SECRET_KEY in .env}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-http://localhost:8080}
+      - CHARMR_ADMIN_PASSWORD=${CHARMR_ADMIN_PASSWORD:-}
+    command: >
+      bash -c "python manage.py migrate --run-syncdb &&
+               python manage.py seed_data &&
+               if [ -n \"$CHARMR_ADMIN_PASSWORD\" ]; then python manage.py ensure_admin --password \"$CHARMR_ADMIN_PASSWORD\"; fi &&
+               gunicorn charmr.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120 --access-logfile - --error-logfile -"
+
+  frontend:
+    image: ghcr.io/my0373/charmr-frontend:${CHARMR_IMAGE_TAG:-latest}
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+
+volumes:
+  charmr-db:
